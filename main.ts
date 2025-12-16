@@ -2,7 +2,7 @@
  *
  * Created by: Maxim Malik
  * Created on: Dec 2025
- * This program uses radios and an ultrasonic sensor to send distance to another microbit
+ * This program uses radios and an ultrasonic sensor to send the message "too close" to a second microbit if within 10 cm
 */
 
 // variables
