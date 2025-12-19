@@ -1,33 +1,35 @@
 /* Copyright (c) 2020 MTHS All rights reserved
  *
  * Created by: Maxim Malik
- * Created on: Dec 2025
- * This program uses radios and an ultrasonic sensor to send the message "too close" to a second microbit if within 10 cm
+ * Created on: Deec 2025
+ * This program says to a microbit if its too close to an object if it is less than 10 cm.
 */
 
-// variables
-let distanceToObject: number = 0
+// variable
+let distanceToAnObject: number = 0
 
 // setup
-radio.setGroup(23)
+radio.setGroup(69)
+basic.clearScreen()
 basic.showIcon(IconNames.Happy)
 
-input.onButtonPressed(Button.A, function () {
-    // checking distance with sonar
-    distanceToObject = sonar.ping(
+while (true) {
+    // gets the distance from the sonar
+    distanceToAnObject = sonar.ping(
         DigitalPin.P1,
         DigitalPin.P2,
         PingUnit.Centimeters
     )
-    // if the distance is less than 10 cm, send alert (!) to microbit, if distance is more than 10 cm send star (*)
-    if (distanceToObject <= 10) {
-        radio.sendString('!')
-    } else {
-        radio.sendString('*')
-    }
-})
+    basic.showIcon(IconNames.Happy)
 
-// receiving message
+    if (distanceToAnObject < 10) {
+        radio.sendString("Too Close")
+        basic.showIcon(IconNames.No)
+    } else {
+        basic.showIcon(IconNames.Yes)
+    }
+}
+
 radio.onReceivedString(function (receivedString) {
     basic.clearScreen()
     basic.showString(receivedString)
